@@ -1,5 +1,7 @@
 import re
 
+
+email_cadastrados = set()
 class user():
     def __init__(self):
         self.user_data = {
@@ -21,6 +23,8 @@ class user():
             if not re.match(regex_email, email):
                 return " E-mail no formato incorreto. Tente novamente. "
             
+
+            
             
             limites_caracteres = 100
             
@@ -34,9 +38,17 @@ class user():
         while True:
             
             email = str(input("\nInforme o seu E-mail : \n"))
+            email_lower = email.lower()
+
+            if email_lower in email_cadastrados:
+                print( "❌ERROR: Esse email ja foi cadastrado! Tente outro.")
+                continue
+            
+
             validacao = self.validar_email(email)
             
             if validacao  ==  email:
+                email_cadastrados.add(email_lower)
                 return email
             
             else:
@@ -63,3 +75,4 @@ class user():
                     
             except ValueError:
                 print("Por favor escreva  um número válido para idade. ")
+
